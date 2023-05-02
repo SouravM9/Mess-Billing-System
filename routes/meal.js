@@ -5,8 +5,9 @@ let mongoose = require('mongoose');
 // // Get all Foods
 router.route('/').get((req, res) => {
     Meal.find()
-        .populate("food", "_id itemName itemPrice")
+        .populate("food", "_id itemName itemPrice imageUrl")
         .populate("user", "_id name imageUrl")
+        .sort({ createdAt: -1 })
         .then((meals) => {
             res.json(meals)
         })
@@ -62,6 +63,8 @@ router.route('/:fromdate/:todate/:userid').get((req, res) => {
         },
         user: req.params.userid
     })
+        .populate("food", "_id itemName itemPrice")
+        .populate("user", "_id name imageUrl")
         .then((meals) => {
             res.json(meals)
         })

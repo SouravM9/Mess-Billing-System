@@ -10,6 +10,14 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Get Food by Id
+router.route('/:id').get((req, res) => {
+    Food.findById(req.params.id)
+        .then((foods) => {
+            res.json(foods)
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 // Create new Food
 router.route('/createFood').post((req, res) => {
