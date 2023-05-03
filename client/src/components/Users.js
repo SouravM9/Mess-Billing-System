@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import Card from './Card'
+import Card from './Card';
+import { useNavigate } from 'react-router-dom';
 
 function Users() {
     const [data, setData] = useState([]);
     const [username, setUsername] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+    const navigate = useNavigate();
 
     const refreshData = () => {
         fetch('/users')
             .then(res => res.json())
             .then(result => {
+                // console.log(result);
                 setData(result);
             })
     }
@@ -55,6 +58,13 @@ function Users() {
             });
     };
 
+    const handleOnEditClick = (id) => {
+       localStorage.setItem("type", "user");
+       localStorage.setItem("id", id);
+
+       navigate("/users/edit");
+
+    }
     return (
         <div className='container'>
 
@@ -77,6 +87,7 @@ function Users() {
                         key={item._id}
                         id={item._id}
                         handleDelete={handleDelete}
+                        handleOnEditClick={handleOnEditClick}
                     />
                 ))}
             </div>
