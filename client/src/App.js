@@ -10,6 +10,7 @@ import Foods from './components/Foods';
 import Meals from './components/Meals';
 import Home from './components/Home';
 import EditCard from './components/EditCard';
+import MenuCard from './components/MenuCard';
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
             <Home key="home" />}>
           </Route>
 
+          <Route exact path="/menu" element={
+            <MenuCard key="menu" />}>
+          </Route>
+          
         </Routes>
 
       </Router>
