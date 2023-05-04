@@ -3,7 +3,7 @@ import React from 'react'
 function Card(props) {
     return (
         <div className="card m-3" style={{ width: '13rem' }}>
-            <img src={props.image} className="card-img-top" alt="alt" style={{ height: '230px', objectFit: 'cover' }} />
+            <img src={props.image} className="card-img-top" alt="alt" style={props.imageStyle} />
             <div className="card-body">
                 <h5 className="card-title text-center mb-3">{props.title}</h5>
                 <p className="card-text text-center mb-4">{props.desc}</p>

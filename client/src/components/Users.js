@@ -59,10 +59,10 @@ function Users() {
     };
 
     const handleOnEditClick = (id) => {
-       localStorage.setItem("type", "user");
-       localStorage.setItem("id", id);
+        localStorage.setItem("type", "user");
+        localStorage.setItem("id", id);
 
-       navigate("/users/edit");
+        navigate("/edit");
 
     }
     return (
@@ -88,6 +88,7 @@ function Users() {
                         id={item._id}
                         handleDelete={handleDelete}
                         handleOnEditClick={handleOnEditClick}
+                        imageStyle={{ height: '230px', objectFit: 'cover' }}
                     />
                 ))}
             </div>

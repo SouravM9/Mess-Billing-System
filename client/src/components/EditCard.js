@@ -16,6 +16,15 @@ function EditCard() {
                     setImageUrl(result.imageUrl);
                 })
         }
+        else if (localStorage.getItem("type") === "food") {
+            fetch(`/foods/${id}`)
+                .then(res => res.json())
+                .then(result => {
+                    setName(result.itemName);
+                    setDesc(result.itemPrice);
+                    setImageUrl(result.imageUrl);
+                })
+        }
     }
 
     useEffect(() => {
@@ -40,6 +49,23 @@ function EditCard() {
                     console.log(err);
                 });
         }
+        else if (localStorage.getItem("type") === "food") {
+            fetch("/foods/update/" + localStorage.getItem("id"), {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    itemName: name,
+                    itemPrice : desc,
+                    imageUrl: imageUrl
+                })
+            })
+                .then(res => navigate("/foods"))
+                .catch(err => {
+                    console.log(err);
+                });
+        }
 
     }
     return (
@@ -50,7 +76,7 @@ function EditCard() {
                     <input type="text" className="form-control" id="name" value={name} onChange={(e) => setName(e.target.value)} />
 
                     {
-                        localStorage.getItem("type") === "Food" ?
+                        localStorage.getItem("type") === "food" ?
                             <div>
                                 <label htmlFor="foodprice" className="form-label">Enter Price</label>
                                 <input type="text" className="form-control" id="foodprice" value={desc} onChange={(e) => setDesc(e.target.value)} />

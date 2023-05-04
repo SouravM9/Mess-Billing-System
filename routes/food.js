@@ -46,7 +46,7 @@ router.route('/:id').delete((req, res) => {
 
 // Update Food
 router.route('/update/:id').put((req, res) => {
-    Food.findByIdAndUpdate(req.params.id, { itemName: req.body.itemName, itemPrice: req.body.itemPrice })
+    Food.findByIdAndUpdate(req.params.id, { itemName: req.body.itemName, itemPrice: req.body.itemPrice, imageUrl: req.body.imageUrl })
         .then(food => {
             res.status(200).send("Record updated!")
         }).catch(err => res.status(400).json('Error: ' + err));

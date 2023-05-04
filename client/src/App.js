@@ -23,8 +23,8 @@ function App() {
             <Users key="users" />}>
           </Route>
 
-          <Route exact path="/users/edit" element={
-            <EditCard key="users/edit" />}>
+          <Route exact path="/edit" element={
+            <EditCard key="edit" />}>
           </Route>
 
           <Route exact path="/foods" element={

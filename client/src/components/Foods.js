@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Card from './Card'
+import { useNavigate } from 'react-router-dom';
 
 function Foods() {
     const [data, setData] = useState([]);
     const [foodName, setFoodName] = useState("");
     const [foodPrice, setFoodPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState("");
+    const navigate = useNavigate();
 
     const refreshData = () => {
         fetch('/foods')
@@ -60,6 +62,14 @@ function Foods() {
             });
     };
 
+    const handleOnEditClick = (id) => {
+        localStorage.setItem("type", "food");
+        localStorage.setItem("id", id);
+
+        navigate("/edit");
+
+    }
+
     return (
         <div>
             <form className='container justify-content-center' style={{ width: '40%' }}>
@@ -84,6 +94,8 @@ function Foods() {
                         key={item._id}
                         id={item._id}
                         handleDelete={handleDelete}
+                        handleOnEditClick={handleOnEditClick}
+                        imageStyle={{ height: '130px', objectFit: 'cover' }}
                     />
                 ))}
             </div>

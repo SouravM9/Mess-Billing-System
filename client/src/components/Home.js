@@ -111,9 +111,9 @@ function Home() {
             <div className='container' style={{ left: '25%', position: 'relative' }}>
                 {data.map(item => (
                     <div className="card-body m-2" key={item._id}>
-                        <p className="card-text"><img src={item.user.imageUrl} alt={item.user.name} style={{ borderRadius: '50%', width: '30px', margin: '10px' }} />
+                        <p className="card-text"><img src={item.user.imageUrl} alt={item.user.name} style={{ borderRadius: '50%', width: '30px', margin: '10px', height: '30px' }} />
                             <b style={{ color: '#132743' }} > {item.user.name} </b> added a
-                            <img src={item.food.imageUrl} alt={item.food.itemName} style={{ borderRadius: '10%', width: '35px', margin: '10px' }} />
+                            <img src={item.food.imageUrl} alt={item.food.itemName} style={{ borderRadius: '10%', width: '35px', margin: '10px', height: '20px' }} />
                             <b style={{ color: '#363636' }}> {item.food.itemName} </b>
                             on {new Date(item.date).toDateString()} ...</p>
                     </div>
