@@ -98,7 +98,6 @@ function Meals() {
                             <th scope="col">Food</th>
                             <th scope="col">Price</th>
                             <th scope="col"></th>
-                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,7 +106,6 @@ function Meals() {
                                 <th scope="row">{new Date(item.date).toDateString()}</th>
                                 <td>{item.food.itemName}</td>
                                 <td>{item.cost}</td>
-                                <td><button className='btn btn-success'>Edit</button></td>
                                 <td><button className='btn btn-danger' onClick={(e) => { handleDelete(e, item._id) }}>Delete</button></td>
                             </tr>
                         ))}

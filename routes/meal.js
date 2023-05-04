@@ -99,4 +99,15 @@ router.route('/calculate/:fromdate/:todate/:userid').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Get Meal by Id
+router.route('/:id').get((req, res) => {
+    Meal.findById(req.params.id)
+        .populate("food", "_id itemName itemPrice")
+        .populate("user", "_id name imageUrl")
+        .then((meal) => {
+            res.json(meal)
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 module.exports = router;
