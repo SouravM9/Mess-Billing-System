@@ -12,6 +12,8 @@ app.use(express.json());
 
 // Connecting  to MongoDB Atlas
 const uri = process.env.ATLAS_URI;
+// const uri = process.env.ATLAS_PROD_URI;
+
 
 mongoose.connect(uri, {
     useNewUrlParser: true,
