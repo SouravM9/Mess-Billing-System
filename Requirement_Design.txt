@@ -5,11 +5,18 @@
 ----------------------------------------------------------------
         Requirements:
 ----------------------------------------------------------------
-1. Select date, add user, add meal
-2. Calculate the cost each month accordingly
-3. Add a feature for extra meals
-4. Add a button to access Menu Card
-5. Add a news feed in the homepage
+1. Select date, add user, add meal (DONE)
+2. Calculate the cost each month accordingly (DONE)
+3. Add a feature for extra meals (NOT REQUIRED)
+4. Add a button to access Menu Card (DONE)
+5. Add a news feed in the homepage (DONE)
+6. Authentication & Authorization
+7. Update Password page
+8. Login and Register page
+9. User will not see Users page
+10. In Homepage, user will only select meal and date, current user will be served as User.
+11. In Meals page, user can see all data, but can delete only his records.
+12. Only Admin can do everything.
 -----------------------------------------------------------------
 
 

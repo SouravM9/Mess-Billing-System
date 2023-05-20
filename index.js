@@ -31,6 +31,9 @@ mongoose.connection.on('error', (err) => {
 const userRouter = require('./routes/user');
 app.use('/users', userRouter);
 
+const authRouter = require('./routes/auth');
+app.use('/', authRouter);
+
 const foodRouter = require('./routes/food');
 app.use('/foods', foodRouter);
 

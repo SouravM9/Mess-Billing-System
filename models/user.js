@@ -4,7 +4,15 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     name: { type: String, required: true },
+    password: {
+        type: String, required: true
+    },
     imageUrl: { type: String, required: true },
+    userType: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
 },
     {
         timestamps: true,
