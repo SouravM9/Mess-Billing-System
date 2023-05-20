@@ -29,6 +29,14 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link text-dark" to="/menu">Menu Card</Link>
                             </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link text-dark" to="/register">Register</Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link text-dark" to="/login">Login</Link>
+                            </li>
                         </ul>
 
                     </div>

@@ -11,6 +11,8 @@ import Meals from './components/Meals';
 import Home from './components/Home';
 import EditCard from './components/EditCard';
 import MenuCard from './components/MenuCard';
+import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -42,6 +44,14 @@ function App() {
 
           <Route exact path="/menu" element={
             <MenuCard key="menu" />}>
+          </Route>
+
+          <Route exact path="/register" element={
+            <Register key="register" />}>
+          </Route>
+
+          <Route exact path="/login" element={
+            <Login key="login" />}>
           </Route>
           
         </Routes>
