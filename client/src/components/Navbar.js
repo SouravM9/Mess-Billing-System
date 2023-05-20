@@ -1,13 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Navbar() {
+    const navigate = useNavigate();
+    const [buttonTxt, setButtonTxt] = useState("Login");
+    const [imageUrl, setImageUrl] = useState('');
+    const [name, setName] = useState('');
+
+    const clickAction = () => {
+
+        if (buttonTxt === "Logout") {
+            setButtonTxt("Login");
+            localStorage.setItem("jwt", "");  // Save the token locally to use in create post
+            localStorage.setItem("user", "");
+            navigate('/login');
+        }
+        else if(buttonTxt === "Login")
+            navigate('/login');
+
+        
+    }
+    useEffect(() => {
+
+        if (localStorage.getItem('jwt') !== undefined && localStorage.getItem('jwt') !== '') {
+            setButtonTxt('Logout');
+            const user = JSON.parse(localStorage.getItem('user'));
+            setImageUrl(user.imageUrl);
+            setName(user.name);
+        }
+
+    }, [])
+
     return (
         <div>
 
             <nav className="navbar navbar-expand-lg bg-light">
                 <div className="container-fluid">
-                    <Link className="navbar-brand text-dark" to="/">Mess Billing System</Link>
+                    <h2 className="navbar-brand text-dark" to="/">Mess Billing System</h2>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -30,15 +59,15 @@ function Navbar() {
                                 <Link className="nav-link text-dark" to="/menu">Menu Card</Link>
                             </li>
 
-                            <li className="nav-item">
-                                <Link className="nav-link text-dark" to="/register">Register</Link>
-                            </li>
-
-                            <li className="nav-item">
-                                <Link className="nav-link text-dark" to="/login">Login</Link>
-                            </li>
                         </ul>
+                        {buttonTxt === "Logout" ? <>
+                            <img src={imageUrl} alt={name} style={{ borderRadius: '50%', width: '35px', height: '35px' }} className='mx-2' />
+                            <h6 className='mx-2'>Hello, {name}</h6>
+                        </> :
+                            <></>}
 
+                            <button className='btn btn-success my-2 my-sm-0' onClick={clickAction}>{buttonTxt}</button>
+                        
                     </div>
                 </div>
             </nav>
