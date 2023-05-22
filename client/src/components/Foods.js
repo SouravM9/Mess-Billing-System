@@ -8,6 +8,7 @@ function Foods() {
     const [foodPrice, setFoodPrice] = useState(0);
     const [imageUrl, setImageUrl] = useState("");
     const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const refreshData = () => {
         fetch('/foods')
@@ -19,6 +20,8 @@ function Foods() {
     }
 
     useEffect(() => {
+
+        loadLocalData();
         refreshData();
     }, []);
 
@@ -69,21 +72,32 @@ function Foods() {
         navigate("/edit");
 
     }
+    const loadLocalData = () => {
+
+        const storedUser = localStorage.getItem('user');
+        const user = storedUser ? JSON.parse(storedUser) : null;
+
+        if (localStorage.getItem('jwt') !== undefined && localStorage.getItem('jwt') !== '') {
+            if (user.userType === 'admin')
+                setIsAdmin(true);
+        }
+    }
 
     return (
         <div>
-            <form className='container justify-content-center' style={{ width: '40%' }}>
-                <div className="mb-3">
-                    <label htmlFor="foodname" className="form-label">Enter Food Name</label>
-                    <input type="text" className="form-control" id="foodname" value={foodName} onChange={(e) => setFoodName(e.target.value)} />
-                    <label htmlFor="foodprice" className="form-label">Enter Price</label>
-                    <input type="text" className="form-control" id="foodprice" value={foodPrice} onChange={(e) => setFoodPrice(e.target.value)} />
-                    <label htmlFor="imageurl" className="form-label">Enter Image URL</label>
-                    <input type="text" className="form-control" id="imageurl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
-                </div>
-                <button type="submit" className="btn btn-primary" onClick={(event) => SubmitRecord(event)} >Add</button>
-            </form>
-
+            {isAdmin ?
+                <form className='container justify-content-center' style={{ width: '40%' }}>
+                    <div className="mb-3">
+                        <label htmlFor="foodname" className="form-label">Enter Food Name</label>
+                        <input type="text" className="form-control" id="foodname" value={foodName} onChange={(e) => setFoodName(e.target.value)} />
+                        <label htmlFor="foodprice" className="form-label">Enter Price</label>
+                        <input type="text" className="form-control" id="foodprice" value={foodPrice} onChange={(e) => setFoodPrice(e.target.value)} />
+                        <label htmlFor="imageurl" className="form-label">Enter Image URL</label>
+                        <input type="text" className="form-control" id="imageurl" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} />
+                    </div>
+                    <button type="submit" className="btn btn-primary" onClick={(event) => SubmitRecord(event)} >Add</button>
+                </form>
+                : <div></div>}
             <div className='container d-flex flex-row justify-content-center flex-wrap mb-3'>
                 {data.map(item => (
 
@@ -96,6 +110,7 @@ function Foods() {
                         handleDelete={handleDelete}
                         handleOnEditClick={handleOnEditClick}
                         imageStyle={{ height: '130px', objectFit: 'cover' }}
+                        disabled={isAdmin ? '' : 'disabled'}
                     />
                 ))}
             </div>

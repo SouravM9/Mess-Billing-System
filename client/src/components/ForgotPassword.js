@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -9,8 +9,8 @@ const Login = () => {
   const PostData = (e) => {
     e.preventDefault();
 
-    fetch("/signin", {
-      method: "post",
+    fetch("/forgotpassword", {
+      method: "put",
       headers: {
         "Content-Type": "application/json"
       },
@@ -21,24 +21,15 @@ const Login = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        if (data.error) {
-          console.log(data.error);
-        }
-        else {
-          localStorage.setItem("jwt", data.token);  // Save the token locally to use in create post
-          localStorage.setItem("user", JSON.stringify(data.user));
-          navigate("/");
-          window.location.reload();
-        }
+        alert(data.message);
+        navigate("/login");
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(err => console.log(err));
+
   }
   return (
     <div className='container justify-content-center' style={{ width: '40%' }}>
-      <h2 className='my-3'>Login</h2>
+      <h2 className='my-3'>Forgot Password</h2>
       <form className='container'>
         <div className="form-group my-3">
           <label>Name</label>
@@ -49,12 +40,11 @@ const Login = () => {
           <input type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
 
-        <button type="submit" className="btn btn-primary my-3" onClick={(e) => PostData(e)}>Login</button>
-        <Link to='/forgotpassword'><h6>Forgot Password?</h6></Link>
-        <Link to='/register'><h6>Don't have an account?</h6></Link>
+        <button type="submit" className="btn btn-primary my-3" onClick={(e) => PostData(e)}>Submit</button>
+
       </form>
     </div>
   )
 }
 
-export default Login
+export default ForgotPassword

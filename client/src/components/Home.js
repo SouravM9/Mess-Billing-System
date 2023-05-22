@@ -5,9 +5,11 @@ function Home() {
     const [data, setData] = useState([]);
     const [usersData, setUsersData] = useState([]);
     const [foodsData, setFoodsData] = useState([]);
-    const [selectedUser, setSelectedUser] = useState("");
+    const [selectedUser, setSelectedUser] = useState();
     const [selectedFood, setSelectedFood] = useState("");
     const [selectedDate, setSelectedDate] = useState("");
+    const [isLoggedIn, setisLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const fetchUsers = () => {
         fetch('/users')
@@ -24,9 +26,22 @@ function Home() {
                 setFoodsData(result);
             })
     }
+    const loadLocalData = () => {
 
+        const storedUser = localStorage.getItem('user');
+        const user = storedUser ? JSON.parse(storedUser) : null;
+
+        if (localStorage.getItem('jwt') !== undefined && localStorage.getItem('jwt') !== '') {
+            setisLoggedIn(true);
+
+            if (user.userType === 'admin')
+                setIsAdmin(true);
+        }
+    }
 
     useEffect(() => {
+
+        loadLocalData();
         fetchUsers();
         fetchFoods();
         refreshData();
@@ -36,6 +51,7 @@ function Home() {
         e.preventDefault();
 
         let cost = findCost(selectedFood);
+        const user = localStorage.getItem('user');
 
         fetch("/meals/createMeal", {
             method: "post",
@@ -45,7 +61,7 @@ function Home() {
             body: JSON.stringify({
                 date: selectedDate,
                 food: selectedFood,
-                user: selectedUser,
+                user: isAdmin ? selectedUser : JSON.parse(user)._id,
                 cost: cost
             })
         })
@@ -81,33 +97,37 @@ function Home() {
 
     return (
         <div>
-            <form className='d-flex justify-content-center'>
-                <div className="p-3 d-flex">
-                    <input type="date" id="date" name="date" className='m-2' style={{ width: '26rem' }}
-                        value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
-                    />
+            {isLoggedIn ?
+                <form className='d-flex justify-content-center'>
+                    <div className="p-3 d-flex">
+                        <input type="date" id="date" name="date" className='m-2' style={{ width: '26rem' }}
+                            value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
+                        />
 
-                    <select className="form-select m-2" aria-label="Select User" id='user' onChange={(e) => setSelectedUser(e.target.value)}>
-                        <option defaultValue>Select User</option>
-                        {usersData.map(item => (
-                            <option value={item._id} key={item._id} >{item.name}</option>
-                        ))}
-                    </select>
+                        {isAdmin ?
+                            <select className="form-select m-2" aria-label="Select User" id='user' onChange={(e) => setSelectedUser(e.target.value)}>
+                                <option defaultValue>Select User</option>
+                                {usersData.map(item => (
+                                    <option value={item._id} key={item._id} >{item.name}</option>
+                                ))}
+                            </select>
+                            : <div></div>}
 
-                    <select className="form-select m-2" aria-label="Select Food" id='food' onChange={(e) => setSelectedFood(e.target.value)}>
-                        <option defaultValue>Select Food</option>
-                        {foodsData.map(item => (
-                            <option value={item._id} key={item._id}>{item.itemName}</option>
-                        ))}
-                    </select>
+                        <select className="form-select m-2" aria-label="Select Food" id='food' onChange={(e) => setSelectedFood(e.target.value)}>
+                            <option defaultValue>Select Food</option>
+                            {foodsData.map(item => (
+                                <option value={item._id} key={item._id}>{item.itemName}</option>
+                            ))}
+                        </select>
 
-                </div>
-                <button type="submit" className="btn btn-primary m-2"
-                    style={{ height: '50%', alignSelf: 'center' }}
-                    onClick={(event) => addMeal(event)}
-                >Add</button>
-            </form>
-
+                    </div>
+                    <button type="submit" className="btn btn-primary m-2"
+                        style={{ height: '50%', alignSelf: 'center' }}
+                        onClick={(event) => addMeal(event)}
+                    >Add</button>
+                </form>
+                : <div></div>
+            }
             <div className='container' style={{ left: '25%', position: 'relative' }}>
                 {data.map(item => (
                     <div className="card-body m-2" key={item._id}>

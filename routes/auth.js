@@ -55,7 +55,7 @@ router.put('/forgotpassword', (req, res) => {
 
                         User.findByIdAndUpdate(userId, { password: hashedpassword })
                             .then(usr => {
-                                res.status(200).send("Password updated!")
+                                res.json({ message: "Password updated successfully" })
                             })
                             .catch(err => {
                                 console.log(err);

@@ -13,6 +13,7 @@ import EditCard from './components/EditCard';
 import MenuCard from './components/MenuCard';
 import Register from './components/Register';
 import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
   return (
@@ -52,6 +53,10 @@ function App() {
 
           <Route exact path="/login" element={
             <Login key="login" />}>
+          </Route>
+
+          <Route exact path="/forgotpassword" element={
+            <ForgotPassword key="forgotpassword" />}>
           </Route>
           
         </Routes>

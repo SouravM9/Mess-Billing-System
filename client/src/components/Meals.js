@@ -8,6 +8,7 @@ function Meals() {
     const [fromDate, setFromDate] = useState(Date.now());
     const [currentUser, setCurrentUser] = useState('');
     const [total, setTotal] = useState(0);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const fetchUsers = () => {
         fetch('/users')
@@ -27,16 +28,18 @@ function Meals() {
 
     useEffect(() => {
         fetchUsers();
+        loadLocalData();
         // refreshData();
     }, []);
 
     const generateData = (event) => {
         event.preventDefault();
 
+        const user = localStorage.getItem('user');
         const toDateISO = new Date(toDate).toISOString();
         const fromDateISO = new Date(fromDate).toISOString();
 
-        fetch(`/meals/${fromDateISO}/${toDateISO}/${currentUser}`)
+        fetch(`/meals/${fromDateISO}/${toDateISO}/${isAdmin ? currentUser : JSON.parse(user)._id}`)
             .then(res => res.json())
             .then(result => {
                 // console.log(result);
@@ -47,7 +50,10 @@ function Meals() {
     }
 
     const getTotal = (fromDateISO, toDateISO) => {
-        fetch(`/meals/calculate/${fromDateISO}/${toDateISO}/${currentUser}`)
+
+        const user = localStorage.getItem('user');
+        
+        fetch(`/meals/calculate/${fromDateISO}/${toDateISO}/${isAdmin ? currentUser : JSON.parse(user)._id}`)
             .then(res => res.json())
             .then(result => {
                 // console.log(result[0].totalCost);
@@ -69,6 +75,17 @@ function Meals() {
             });
     };
 
+    const loadLocalData = () => {
+
+        const storedUser = localStorage.getItem('user');
+        const user = storedUser ? JSON.parse(storedUser) : null;
+
+        if (localStorage.getItem('jwt') !== undefined && localStorage.getItem('jwt') !== '') {
+            if (user.userType === 'admin')
+                setIsAdmin(true);
+        }
+    }
+
     return (
         <div className='container'>
 
@@ -79,12 +96,12 @@ function Meals() {
                     <label htmlFor="todate" className='m-2'>To Date</label>
                     <input type="date" id="todate" name="todate" className='m-2' value={toDate} onChange={(e) => setToDate(e.target.value)} />
 
-                    <select className="form-select m-2" aria-label="Select USer" id='user' onChange={(e) => setCurrentUser(e.target.value)}>
+                    {isAdmin ? <select className="form-select m-2" aria-label="Select USer" id='user' onChange={(e) => setCurrentUser(e.target.value)}>
                         <option defaultValue>Select User</option>
                         {usersData.map(item => (
                             <option value={item._id} key={item._id}>{item.name}</option>
                         ))}
-                    </select>
+                    </select> : <div></div>}
 
                 </div>
                 <button type="submit" className="btn btn-primary m-2" onClick={(event) => generateData(event)} >Generate</button>

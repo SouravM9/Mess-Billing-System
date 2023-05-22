@@ -15,10 +15,10 @@ function Navbar() {
             localStorage.setItem("user", "");
             navigate('/login');
         }
-        else if(buttonTxt === "Login")
+        else if (buttonTxt === "Login")
             navigate('/login');
 
-        
+
     }
     useEffect(() => {
 
@@ -45,9 +45,13 @@ function Navbar() {
                             <li className="nav-item">
                                 <Link className="nav-link text-dark" aria-current="page" to="/">Home</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link text-dark" to="/meals">Meals</Link>
-                            </li>
+
+                            {buttonTxt === "Logout" ?
+                                <li className="nav-item">
+                                    <Link className="nav-link text-dark" to="/meals">Meals</Link>
+                                </li>
+                                : <></>}
+
                             <li className="nav-item">
                                 <Link className="nav-link text-dark" to="/users">Users</Link>
                             </li>
@@ -66,8 +70,8 @@ function Navbar() {
                         </> :
                             <></>}
 
-                            <button className='btn btn-success my-2 my-sm-0' onClick={clickAction}>{buttonTxt}</button>
-                        
+                        <button className='btn btn-success my-2 my-sm-0' onClick={clickAction}>{buttonTxt}</button>
+
                     </div>
                 </div>
             </nav>
