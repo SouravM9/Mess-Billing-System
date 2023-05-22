@@ -28,6 +28,13 @@ function Home() {
     }
     const loadLocalData = () => {
 
+        // When loaded for the first time in any browser
+        if (localStorage.getItem('user') === null)
+            localStorage.setItem('user', '');
+
+        if (localStorage.getItem('jwt') === null)
+            localStorage.setItem('jwt', '');
+
         const storedUser = localStorage.getItem('user');
         const user = storedUser ? JSON.parse(storedUser) : null;
 
