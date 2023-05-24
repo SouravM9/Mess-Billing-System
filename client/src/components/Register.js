@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [url, setUrl] = useState(undefined);
-
+    const navigate = useNavigate();
+    
     const PostData = (e) => {
 
         e.preventDefault();
@@ -25,14 +26,15 @@ const Register = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    console.log(data.error);
+                    alert(data.error);
                 }
                 else {
-                    console.log(data.message);
+                    alert(data.message);
+                    navigate('/login');
                 }
             })
             .catch(err => {
-                console.log(err);
+                alert(err);
             });
     }
     return (

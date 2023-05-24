@@ -95,7 +95,7 @@ function Home() {
     }
 
     const refreshData = () => {
-        fetch('/meals')
+        fetch('/meals/monthwise')
             .then(res => res.json())
             .then(result => {
                 setData(result);

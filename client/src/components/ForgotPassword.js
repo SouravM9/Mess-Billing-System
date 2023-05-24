@@ -24,7 +24,7 @@ const ForgotPassword = () => {
         alert(data.message);
         navigate("/login");
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err));
 
   }
   return (

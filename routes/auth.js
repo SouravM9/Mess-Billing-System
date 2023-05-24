@@ -72,12 +72,12 @@ router.put('/forgotpassword', (req, res) => {
 router.post('/signin', (req, res) => {
     const { name, password } = req.body;
     if (!name || !password) {
-        res.status(422).json({ error: "Please fill up the name and password" });
+        res.json({ error: "Please fill up the name and password" });
     }
     User.findOne({ name: name })
         .then(savedUser => {
             if (!savedUser) {
-                return res.status(422).json({ error: "Invalid Name or Password" });
+                return res.json({ error: "Invalid Name or Password" });
             }
             bcrypt.compare(password, savedUser.password)  //Compare the password provided with db one
                 .then(doMatch => {
@@ -88,7 +88,7 @@ router.post('/signin', (req, res) => {
                         res.json({ token: token, user: { _id, name, imageUrl, userType } });
                     }
                     else {
-                        return res.status(422).json({ error: "Invalid Email or Password" });
+                        return res.json({ error: "Invalid Email or Password" });
                     }
                 })
                 .catch(err => {

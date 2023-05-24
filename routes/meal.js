@@ -15,6 +15,35 @@ router.route('/').get((req, res) => {
 });
 
 
+// Get All Meals for Current Month
+router.route('/monthwise').get((req, res) => {
+
+    // Get current date
+    const currentDate = new Date();
+
+    // Get first day of the month
+    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    firstDayOfMonth.setHours(0, 0, 0, 0);
+
+    // Get last day of the month
+    const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    lastDayOfMonth.setHours(23, 59, 59, 999);
+
+    Meal.find({
+        date: {
+            $gte: firstDayOfMonth,
+            $lte: lastDayOfMonth
+        }
+    })
+        .populate("food", "_id itemName itemPrice imageUrl")
+        .populate("user", "_id name imageUrl")
+        .sort({ createdAt: -1 })
+        .then((meals) => {
+            res.json(meals)
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 // Create new Food
 router.route('/createMeal').post((req, res) => {
     const date = req.body.date;

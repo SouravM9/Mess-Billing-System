@@ -21,13 +21,14 @@ const Login = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
         if (data.error) {
-          console.log(data.error);
+          alert(data.error);
         }
         else {
           localStorage.setItem("jwt", data.token);  // Save the token locally to use in create post
           localStorage.setItem("user", JSON.stringify(data.user));
+          alert("Login Successful");
           navigate("/");
           window.location.reload();
         }
