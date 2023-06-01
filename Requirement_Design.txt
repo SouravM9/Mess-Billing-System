@@ -10,13 +10,15 @@
 3. Add a feature for extra meals (NOT REQUIRED)
 4. Add a button to access Menu Card (DONE)
 5. Add a news feed in the homepage (DONE)
-6. Authentication & Authorization
-7. Update Password page
-8. Login and Register page
-9. User will not see Users page
-10. In Homepage, user will only select meal and date, current user will be served as User.
-11. In Meals page, user can see all data, but can delete only his records.
-12. Only Admin can do everything.
+6. Authentication & Authorization (DONE)
+7. Update Password page (DONE)
+8. Login and Register page (DONE)
+9. User will not see Users page (NOT REQUIRED)
+10. In Homepage, user will only select meal and date, current user will be served as User. (DONE)
+11. In Meals page, user can see his data and can delete. (DONE) 
+12. Only Admin can do everything. (DONE)
+13. Mobile friendly
+14. Navbar sticky and make some break.
 -----------------------------------------------------------------
 
 
