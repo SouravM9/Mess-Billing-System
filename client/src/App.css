@@ -1,0 +1,57 @@
+#foods_addFoodForm {
+    width: 40%;
+}
+
+
+#meals_foodTableDiv {
+    position: relative;
+    left: 20%;
+    width: 60%;
+}
+
+#meals_totalBox {
+    width: 20%;
+    position: relative;
+    left: 60%
+}
+
+#all_forms {
+
+    width: 40%;
+}
+
+#home_feed{
+    left: 25%;
+    position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+
+    #foods_addFoodForm {
+        width: 100%;
+    }
+
+    #meals_foodTableDiv {
+
+        left: 0px;
+        width: 100%;
+    }
+
+    #meals_totalBox {
+        width: 100%;
+        left: 0
+    }
+
+    #all_forms {
+        width: 100%;
+    }
+
+    #home_feed{
+        left: 0;
+    }
+
+    #home_feedItems
+    {
+        padding: 3px;
+    }
+}

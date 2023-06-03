@@ -103,41 +103,67 @@ function Home() {
     }
 
     return (
-        <div>
+        <div className='container'>
+            <br />
+            <br />
+            <br />
             {isLoggedIn ?
-                <form className='d-flex justify-content-center'>
-                    <div className="p-3 d-flex">
-                        <input type="date" id="date" name="date" className='m-2' style={{ width: '26rem' }}
-                            value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)}
+                <form className='d-flex flex-row justify-content-center'>
+                    <div className="p-3 d-flex flex-wrap">
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            className='m-2'
+                            style={{ width: '100%', maxWidth: '26rem' }}
+                            value={selectedDate}
+                            onChange={(e) => setSelectedDate(e.target.value)}
                         />
 
-                        {isAdmin ?
-                            <select className="form-select m-2" aria-label="Select User" id='user' onChange={(e) => setSelectedUser(e.target.value)}>
+                        {isAdmin && (
+                            <select
+                                className="form-select m-2"
+                                aria-label="Select User"
+                                id='user'
+                                onChange={(e) => setSelectedUser(e.target.value)}
+                                style={{ width: '100%', maxWidth: '26rem' }}
+                            >
                                 <option defaultValue>Select User</option>
                                 {usersData.map(item => (
-                                    <option value={item._id} key={item._id} >{item.name}</option>
+                                    <option value={item._id} key={item._id}>{item.name}</option>
                                 ))}
                             </select>
-                            : <div></div>}
+                        )}
 
-                        <select className="form-select m-2" aria-label="Select Food" id='food' onChange={(e) => setSelectedFood(e.target.value)}>
+                        <select
+                            className="form-select m-2"
+                            aria-label="Select Food"
+                            id='food'
+                            onChange={(e) => setSelectedFood(e.target.value)}
+                            style={{ width: '100%', maxWidth: '26rem' }}
+                        >
                             <option defaultValue>Select Food</option>
                             {foodsData.map(item => (
                                 <option value={item._id} key={item._id}>{item.itemName}</option>
                             ))}
                         </select>
 
+                        <button
+                            type="submit"
+                            className="btn btn-primary m-2"
+                            style={{ width: '100%', maxWidth: '26rem' }}
+                            onClick={(event) => addMeal(event)}
+                        >
+                            Add
+                        </button>
                     </div>
-                    <button type="submit" className="btn btn-primary m-2"
-                        style={{ height: '50%', alignSelf: 'center' }}
-                        onClick={(event) => addMeal(event)}
-                    >Add</button>
                 </form>
+
                 : <div></div>
             }
-            <div className='container' style={{ left: '25%', position: 'relative' }}>
+            <div className='container' id='home_feed'>
                 {data.map(item => (
-                    <div className="card-body m-2" key={item._id}>
+                    <div className="card-body m-2" key={item._id} id='home_feedItems'>
                         <p className="card-text"><img src={item.user.imageUrl} alt={item.user.name} style={{ borderRadius: '50%', width: '30px', margin: '10px', height: '30px' }} />
                             <b style={{ color: '#132743' }} > {item.user.name} </b> added a
                             <img src={item.food.imageUrl} alt={item.food.itemName} style={{ borderRadius: '10%', width: '35px', margin: '10px', height: '20px' }} />

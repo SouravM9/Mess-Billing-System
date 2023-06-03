@@ -52,7 +52,7 @@ function Meals() {
     const getTotal = (fromDateISO, toDateISO) => {
 
         const user = localStorage.getItem('user');
-        
+
         fetch(`/meals/calculate/${fromDateISO}/${toDateISO}/${isAdmin ? currentUser : JSON.parse(user)._id}`)
             .then(res => res.json())
             .then(result => {
@@ -89,6 +89,10 @@ function Meals() {
     return (
         <div className='container'>
 
+            <br />
+            <br />
+            <br />
+
             <form className='d-flex flex-row justify-content-center'>
                 <div className="p-3">
                     <label htmlFor="fromdate" className='m-2' >From Date</label>
@@ -107,8 +111,8 @@ function Meals() {
                 <button type="submit" className="btn btn-primary m-2" onClick={(event) => generateData(event)} >Generate</button>
             </form>
 
-            {data.length > 0 ? <div>
-                <table className="table table-hover m-3" style={{ width: '60%', position: 'relative', left: '20%' }}>
+            {data.length > 0 ? <div id='meals_foodTableDiv'>
+                <table className="table table-hover m-3" id='meals_foodTable'>
                     <thead>
                         <tr>
                             <th scope="col">Date</th>
@@ -129,7 +133,7 @@ function Meals() {
                     </tbody>
                 </table>
 
-                <div className="card" style={{ width: '20%', position: 'relative', left: '60%' }}>
+                <div className="card" id='meals_totalBox'>
                     <div className="card-header">
                         Total
                     </div>

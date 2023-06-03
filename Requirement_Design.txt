@@ -17,8 +17,8 @@
 10. In Homepage, user will only select meal and date, current user will be served as User. (DONE)
 11. In Meals page, user can see his data and can delete. (DONE) 
 12. Only Admin can do everything. (DONE)
-13. Mobile friendly
-14. Navbar sticky and make some break.
+13. Mobile friendly (DONE)
+14. Navbar sticky and make some break. (DONE)
 -----------------------------------------------------------------
 
 

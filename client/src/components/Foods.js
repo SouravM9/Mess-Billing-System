@@ -84,9 +84,14 @@ function Foods() {
     }
 
     return (
-        <div>
+        <div className='container'>
+
+            <br />
+            <br />
+            <br />
+            
             {isAdmin ?
-                <form className='container justify-content-center' style={{ width: '40%' }}>
+                <form className='container justify-content-center' id='foods_addFoodForm'>
                     <div className="mb-3">
                         <label htmlFor="foodname" className="form-label">Enter Food Name</label>
                         <input type="text" className="form-control" id="foodname" value={foodName} onChange={(e) => setFoodName(e.target.value)} />

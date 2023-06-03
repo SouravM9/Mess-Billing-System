@@ -38,7 +38,12 @@ const Login = () => {
       });
   }
   return (
-    <div className='container justify-content-center' style={{ width: '40%' }}>
+    <div className='container justify-content-center' id='all_forms'>
+
+      <br />
+      <br />
+      <br />
+
       <h2 className='my-3'>Login</h2>
       <form className='container'>
         <div className="form-group my-3">

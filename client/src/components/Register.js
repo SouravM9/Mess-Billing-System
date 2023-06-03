@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-    
+
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [url, setUrl] = useState(undefined);
     const navigate = useNavigate();
-    
+
     const PostData = (e) => {
 
         e.preventDefault();
@@ -38,7 +38,12 @@ const Register = () => {
             });
     }
     return (
-        <div className='container justify-content-center' style={{ width: '40%' }}>
+        <div className='container justify-content-center' id='all_forms'>
+
+            <br />
+            <br />
+            <br />
+
             <h2 className='my-3'>Register</h2>
             <form>
                 <div className="form-group my-3">
